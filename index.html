@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Math Quest - Learning Math as Easy as Playing a Game</title>
+    <title>Quest — Learning made as fun as playing a game</title>
+    <meta
+      name="description"
+      content="Quest is a gamified learning platform for Saudi students from Grade 1 to Grade 12 — covering school subjects, Qudrat, and Achievement exam prep."
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -30,1047 +34,733 @@
     </script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+      html {
+        scroll-behavior: smooth;
+      }
       body {
         font-family: "Inter", sans-serif;
+        overflow-x: hidden;
       }
+      @media (max-width: 640px) {
+        .math-symbol {
+          font-size: 4rem !important;
+        }
+      }
+      /* Mobile menu */
+      #mobile-menu { display: none; }
+      #mobile-menu.open { display: block; }
 
-      /* Animated background elements */
       @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0px) rotate(0deg);
-        }
-        50% {
-          transform: translateY(-20px) rotate(5deg);
-        }
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(5deg); }
       }
-
       @keyframes floatReverse {
-        0%,
-        100% {
-          transform: translateY(0px) rotate(0deg);
-        }
-        50% {
-          transform: translateY(20px) rotate(-5deg);
-        }
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(20px) rotate(-5deg); }
       }
-
       @keyframes pulse {
-        0%,
-        100% {
-          opacity: 0.4;
-          transform: scale(1);
-        }
-        50% {
-          opacity: 0.6;
-          transform: scale(1.1);
-        }
+        0%, 100% { opacity: 0.4; transform: scale(1); }
+        50% { opacity: 0.6; transform: scale(1.1); }
       }
-
-      .float-animation {
-        animation: float 6s ease-in-out infinite;
-      }
-
-      .float-reverse {
-        animation: floatReverse 8s ease-in-out infinite;
-      }
-
-      .pulse-animation {
-        animation: pulse 4s ease-in-out infinite;
-      }
-
-      @keyframes shake {
-        0%,
-        100% {
-          transform: translateX(0);
-        }
-        25% {
-          transform: translateX(-5px);
-        }
-        75% {
-          transform: translateX(5px);
-        }
-      }
-
       @keyframes glow {
-        0%,
-        100% {
-          box-shadow: 0 0 10px rgba(108, 99, 255, 0.3);
-          transform: scale(1);
-        }
-        50% {
-          box-shadow: 0 0 20px rgba(108, 99, 255, 0.6);
-          transform: scale(1.05);
-        }
+        0%, 100% { box-shadow: 0 0 10px rgba(108, 99, 255, 0.3); }
+        50% { box-shadow: 0 0 25px rgba(108, 99, 255, 0.55); }
       }
-
       @keyframes slideIn {
-        from {
-          opacity: 0;
-          transform: translateX(-20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
       }
-
       @keyframes bounce {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-10px);
-        }
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
       }
-
-      @keyframes rotate {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      @keyframes arrowFlow {
-        0% {
-          opacity: 0.3;
-          transform: translateX(-10px);
-        }
-        50% {
-          opacity: 1;
-          transform: translateX(0);
-        }
-        100% {
-          opacity: 0.3;
-          transform: translateX(10px);
-        }
-      }
-
       @keyframes iconPulse {
-        0%,
-        100% {
-          transform: scale(1);
-          opacity: 1;
-        }
-        50% {
-          transform: scale(1.15);
-          opacity: 0.8;
-        }
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.12); opacity: 0.85; }
+      }
+      @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
       }
 
-      @keyframes techFloat {
-        0%,
-        100% {
-          transform: translateY(0) rotate(0deg);
-        }
-        50% {
-          transform: translateY(-15px) rotate(180deg);
-        }
-      }
+      .float-animation { animation: float 6s ease-in-out infinite; }
+      .float-reverse { animation: floatReverse 8s ease-in-out infinite; }
+      .pulse-animation { animation: pulse 4s ease-in-out infinite; }
+      .glow-animation { animation: glow 3s ease-in-out infinite; }
+      .slide-in { animation: slideIn 0.6s ease-out both; }
+      .bounce-animation { animation: bounce 2s ease-in-out infinite; }
+      .icon-pulse { animation: iconPulse 2s ease-in-out infinite; }
 
-      .shake-animation {
-        animation: shake 2s ease-in-out infinite;
-      }
-
-      .glow-animation {
-        animation: glow 3s ease-in-out infinite;
-      }
-
-      .slide-in {
-        animation: slideIn 0.6s ease-out;
-      }
-
-      .bounce-animation {
-        animation: bounce 2s ease-in-out infinite;
-      }
-
-      .rotate-slow {
-        animation: rotate 20s linear infinite;
-      }
-
-      .arrow-flow {
-        animation: arrowFlow 2s ease-in-out infinite;
-      }
-
-      .icon-pulse {
-        animation: iconPulse 2s ease-in-out infinite;
-      }
-
-      .tech-float {
-        animation: techFloat 6s ease-in-out infinite;
-      }
-
-      /* Grid pattern overlay */
       .grid-pattern {
-        background-image: linear-gradient(rgba(108, 99, 255, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(108, 99, 255, 0.03) 1px, transparent 1px);
+        background-image:
+          linear-gradient(rgba(108, 99, 255, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(108, 99, 255, 0.04) 1px, transparent 1px);
         background-size: 50px 50px;
       }
 
-      /* Decorative math symbols */
       .math-symbol {
         position: absolute;
-        color: rgba(108, 99, 255, 0.1);
+        color: rgba(108, 99, 255, 0.08);
         font-size: 8rem;
         font-weight: bold;
         pointer-events: none;
+        user-select: none;
+      }
+
+      .gradient-text {
+        background: linear-gradient(90deg, #ffffff 0%, #9AA0FF 50%, #ffffff 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: shimmer 6s linear infinite;
+      }
+
+      .nav-blur {
+        backdrop-filter: saturate(180%) blur(14px);
+        -webkit-backdrop-filter: saturate(180%) blur(14px);
+        background-color: rgba(15, 18, 36, 0.72);
+      }
+
+      .section-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(108, 99, 255, 0.35), transparent);
       }
     </style>
   </head>
   <body class="bg-app-bg text-text-primary antialiased">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 nav-blur border-b border-border-divider/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+        <a href="#top" class="flex items-center space-x-2">
+          <div
+            class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-purple to-icon-default flex items-center justify-center font-bold shadow-lg shadow-brand-purple/30"
+          >
+            Q
+          </div>
+          <span class="text-lg font-bold tracking-tight">Quest</span>
+        </a>
+        <div class="hidden md:flex items-center space-x-8 text-sm text-text-secondary">
+          <a href="#features" class="hover:text-text-primary transition-colors">Features</a>
+          <a href="#platforms" class="hover:text-text-primary transition-colors">Platforms</a>
+          <a href="#how" class="hover:text-text-primary transition-colors">How It Works</a>
+          <a href="#exams" class="hover:text-text-primary transition-colors">Exam Prep</a>
+          <a href="#contact" class="hover:text-text-primary transition-colors">Contact</a>
+        </div>
+        <div class="flex items-center space-x-2">
+          <a
+            href="https://questcorp.net/welcome"
+            class="hidden sm:inline-flex items-center bg-brand-purple hover:bg-brand-purple/90 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-all duration-300 shadow-lg shadow-brand-purple/30"
+          >
+            Launch App
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </a>
+          <button
+            id="mobile-menu-btn"
+            class="md:hidden p-2 rounded-lg hover:bg-elevated-surface transition-colors"
+            aria-label="Toggle menu"
+            aria-expanded="false"
+            onclick="const m=document.getElementById('mobile-menu');const b=document.getElementById('mobile-menu-btn');m.classList.toggle('open');b.setAttribute('aria-expanded', m.classList.contains('open'));"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="md:hidden border-t border-border-divider/60 nav-blur">
+        <div class="px-4 py-4 flex flex-col space-y-3 text-text-secondary">
+          <a href="#features" onclick="document.getElementById('mobile-menu').classList.remove('open')" class="py-2 hover:text-text-primary transition-colors">Features</a>
+          <a href="#platforms" onclick="document.getElementById('mobile-menu').classList.remove('open')" class="py-2 hover:text-text-primary transition-colors">Platforms</a>
+          <a href="#how" onclick="document.getElementById('mobile-menu').classList.remove('open')" class="py-2 hover:text-text-primary transition-colors">How It Works</a>
+          <a href="#exams" onclick="document.getElementById('mobile-menu').classList.remove('open')" class="py-2 hover:text-text-primary transition-colors">Exam Prep</a>
+          <a href="#contact" onclick="document.getElementById('mobile-menu').classList.remove('open')" class="py-2 hover:text-text-primary transition-colors">Contact</a>
+          <a
+            href="https://questcorp.net/welcome"
+            class="inline-flex items-center justify-center bg-brand-purple hover:bg-brand-purple/90 text-white text-sm font-semibold px-4 py-3 rounded-lg transition-all duration-300 shadow-lg shadow-brand-purple/30 mt-2"
+          >
+            Launch App
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </nav>
+
     <!-- Hero Section -->
     <section
-      class="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden"
+      id="top"
+      class="min-h-screen flex items-center justify-center px-4 pt-32 pb-20 relative overflow-hidden"
     >
-      <!-- Grid pattern overlay -->
       <div class="absolute inset-0 grid-pattern"></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-brand-purple/15 via-transparent to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-tl from-energy-yellow/5 via-transparent to-transparent"></div>
 
-      <!-- Layered gradient effects -->
-      <div
-        class="absolute inset-0 bg-gradient-to-br from-brand-purple/15 via-transparent to-transparent"
-      ></div>
-      <div
-        class="absolute inset-0 bg-gradient-to-tl from-energy-yellow/5 via-transparent to-transparent"
-      ></div>
-      <div
-        class="absolute inset-0 bg-gradient-to-r from-transparent via-success-green/5 to-transparent"
-      ></div>
+      <div class="absolute top-20 left-10 w-72 h-72 bg-brand-purple/10 rounded-full blur-3xl float-animation"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-energy-yellow/10 rounded-full blur-3xl float-reverse"></div>
+      <div class="absolute top-1/2 left-1/4 w-64 h-64 bg-success-green/10 rounded-full blur-3xl pulse-animation"></div>
 
-      <!-- Floating geometric shapes -->
-      <div
-        class="absolute top-20 left-10 w-72 h-72 bg-brand-purple/10 rounded-full blur-3xl float-animation"
-      ></div>
-      <div
-        class="absolute bottom-20 right-10 w-96 h-96 bg-energy-yellow/10 rounded-full blur-3xl float-reverse"
-      ></div>
-      <div
-        class="absolute top-1/2 left-1/4 w-64 h-64 bg-success-green/10 rounded-full blur-3xl pulse-animation"
-      ></div>
-
-      <!-- Decorative circles -->
-      <div
-        class="absolute top-32 right-20 w-32 h-32 border-2 border-brand-purple/20 rounded-full float-animation"
-      ></div>
-      <div
-        class="absolute bottom-32 left-20 w-24 h-24 border-2 border-energy-yellow/20 rounded-full float-reverse"
-      ></div>
-      <div
-        class="absolute top-1/3 right-1/3 w-16 h-16 border-2 border-success-green/20 rounded-full pulse-animation"
-      ></div>
-
-      <!-- Math symbols as decorative elements -->
       <div class="math-symbol top-10 left-10 float-animation">+</div>
       <div class="math-symbol top-20 right-20 float-reverse">×</div>
-      <div class="math-symbol bottom-20 left-1/4 float-animation">÷</div>
-      <div class="math-symbol bottom-10 right-1/3 float-reverse">=</div>
-      <div class="math-symbol top-1/2 right-10 pulse-animation">π</div>
+      <div class="math-symbol bottom-20 left-1/4 float-animation">π</div>
+      <div class="math-symbol bottom-10 right-1/3 float-reverse">∑</div>
 
-      <!-- Floating number badges (app-like UI elements) -->
-      <div
-        class="absolute top-40 left-1/4 w-20 h-20 bg-elevated-surface border-2 border-brand-purple/30 rounded-2xl flex items-center justify-center text-2xl font-bold text-brand-purple shadow-lg float-animation"
-      >
-        <span>5</span>
-      </div>
-      <div
-        class="absolute bottom-40 right-1/4 w-20 h-20 bg-elevated-surface border-2 border-energy-yellow/30 rounded-2xl flex items-center justify-center text-2xl font-bold text-energy-yellow shadow-lg float-reverse"
-      >
-        <span>10</span>
-      </div>
-      <div
-        class="absolute top-1/3 left-1/2 w-16 h-16 bg-elevated-surface border-2 border-success-green/30 rounded-xl flex items-center justify-center text-xl font-bold text-success-green shadow-lg pulse-animation"
-      >
-        <span>∞</span>
-      </div>
-
-      <!-- XP/Level indicators (gamification elements) -->
-      <div
-        class="absolute top-60 right-32 bg-card-surface/80 backdrop-blur-sm border border-brand-purple/30 rounded-lg px-4 py-2 shadow-xl float-animation"
-      >
-        <div class="flex items-center space-x-2">
-          <span class="text-energy-yellow text-lg">⭐</span>
-          <span class="text-text-secondary text-sm font-semibold">Level 5</span>
-        </div>
-      </div>
-      <div
-        class="absolute bottom-60 left-32 bg-card-surface/80 backdrop-blur-sm border border-success-green/30 rounded-lg px-4 py-2 shadow-xl float-reverse"
-      >
-        <div class="flex items-center space-x-2">
-          <span class="text-streak-orange text-lg">🔥</span>
-          <span class="text-text-secondary text-sm font-semibold">7 Day Streak</span>
-        </div>
-      </div>
-
-      <!-- Main content -->
-      <div class="max-w-6xl mx-auto text-center relative z-10">
-        <h1
-          class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-text-primary via-brand-purple to-text-primary bg-clip-text text-transparent drop-shadow-lg"
-        >
-          Math Quest
-        </h1>
-        <p class="text-2xl md:text-4xl font-semibold mb-6 text-text-secondary">
-          Learning math as easy as playing a game
-        </p>
-        <p class="text-lg md:text-xl text-text-muted max-w-3xl mx-auto mb-10 leading-relaxed">
-          Transform mathematics education through gamification. Students learn, practice, and master
-          math concepts by completing quests, earning rewards, and leveling up—making every lesson
-          an adventure.
-        </p>
-        <a
-          href="#contact"
-          class="inline-block bg-brand-purple hover:bg-brand-purple/90 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-brand-purple/30"
-        >
-          Get in Touch
-        </a>
-      </div>
-
-      <!-- Bottom wave separator -->
-      <div
-        class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-app-bg to-transparent"
-      ></div>
-    </section>
-
-    <!-- Problem → Solution Section -->
-    <section class="py-20 px-4 relative overflow-hidden">
-      <!-- Background decorative elements -->
-      <div
-        class="absolute top-10 left-10 w-40 h-40 bg-heart-red/5 rounded-full blur-2xl pulse-animation"
-      ></div>
-      <div
-        class="absolute bottom-10 right-10 w-40 h-40 bg-success-green/5 rounded-full blur-2xl pulse-animation"
-        style="animation-delay: 1s"
-      ></div>
-
-      <div class="max-w-6xl mx-auto relative z-10">
-        <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
-          From <span class="text-heart-red">Struggle</span> to
-          <span class="text-success-green">Success</span>
-        </h2>
-
-        <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
-          <!-- Problem -->
-          <div class="bg-card-surface rounded-2xl p-8 border border-border-divider relative">
-            <!-- Floating problem indicators -->
-            <div
-              class="absolute -top-4 -right-4 w-12 h-12 bg-heart-red/20 rounded-full flex items-center justify-center shake-animation"
-            >
-              <span class="text-heart-red text-xl">⚠️</span>
-            </div>
-            <div class="text-5xl mb-4 shake-animation" style="animation-delay: 0.5s">😓</div>
-            <h3 class="text-2xl font-bold mb-4 text-heart-red">The Problem</h3>
-            <ul class="space-y-3 text-text-secondary">
-              <li class="flex items-start slide-in" style="animation-delay: 0.1s">
-                <span class="text-heart-red mr-3 text-xl">×</span>
-                <span>Math feels boring and repetitive</span>
-              </li>
-              <li class="flex items-start slide-in" style="animation-delay: 0.2s">
-                <span class="text-heart-red mr-3 text-xl">×</span>
-                <span>Lack of motivation and engagement</span>
-              </li>
-              <li class="flex items-start slide-in" style="animation-delay: 0.3s">
-                <span class="text-heart-red mr-3 text-xl">×</span>
-                <span>No clear progress tracking</span>
-              </li>
-              <li class="flex items-start slide-in" style="animation-delay: 0.4s">
-                <span class="text-heart-red mr-3 text-xl">×</span>
-                <span>Traditional methods don't resonate with digital natives</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Solution -->
+      <div class="max-w-6xl mx-auto relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left: Copy -->
+        <div class="text-center lg:text-left">
           <div
-            class="bg-elevated-surface rounded-2xl p-8 border border-brand-purple/30 relative glow-animation"
+            class="inline-flex items-center bg-elevated-surface/60 border border-brand-purple/30 rounded-full px-4 py-1.5 mb-6 text-sm text-text-secondary backdrop-blur-sm"
           >
-            <!-- Floating success indicators -->
-            <div
-              class="absolute -top-4 -right-4 w-12 h-12 bg-success-green/20 rounded-full flex items-center justify-center bounce-animation"
+            <span class="w-2 h-2 bg-success-green rounded-full mr-2 pulse-animation"></span>
+            Built for students in Saudi Arabia · Grade 1–12
+          </div>
+          <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            <span class="gradient-text">Quest</span>
+            <br />
+            <span class="text-text-primary text-3xl md:text-5xl">Learning, leveled up.</span>
+          </h1>
+          <p class="text-lg md:text-xl text-text-muted max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+            A gamified learning platform that turns school subjects, Qudrat, and Achievement
+            prep into quests, streaks, and boss battles — so students keep coming back.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a
+              href="https://questcorp.net/welcome"
+              class="inline-flex items-center justify-center bg-brand-purple hover:bg-brand-purple/90 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-brand-purple/30"
             >
-              <span class="text-success-green text-xl">✨</span>
+              Launch App
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+              </svg>
+            </a>
+            <a
+              href="#features"
+              class="inline-flex items-center justify-center bg-elevated-surface hover:bg-elevated-surface/80 text-text-primary font-semibold px-8 py-4 rounded-lg text-lg border border-border-divider transition-all duration-300"
+            >
+              See How It Works
+            </a>
+          </div>
+
+          <!-- Trust badges -->
+          <div class="mt-10 flex flex-wrap gap-6 justify-center lg:justify-start text-text-muted text-sm">
+            <div class="flex items-center"><span class="text-success-green mr-2">✓</span> K–12 Curriculum</div>
+            <div class="flex items-center"><span class="text-success-green mr-2">✓</span> Qudrat & Achievement</div>
+            <div class="flex items-center"><span class="text-success-green mr-2">✓</span> Teacher Dashboard</div>
+          </div>
+        </div>
+
+        <!-- Right: Gamified UI mockup -->
+        <div class="relative hidden lg:block">
+          <div
+            class="bg-card-surface border border-border-divider rounded-3xl p-6 shadow-2xl shadow-brand-purple/10 glow-animation"
+          >
+            <!-- Profile bar -->
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-brand-purple to-icon-default flex items-center justify-center text-xl">🦊</div>
+                <div>
+                  <div class="text-sm text-text-muted">Level 12 · Scholar</div>
+                  <div class="text-lg font-bold">Sara A.</div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-3 text-sm">
+                <span class="flex items-center bg-elevated-surface px-3 py-1.5 rounded-lg">
+                  <span class="text-streak-orange mr-1.5">🔥</span>
+                  <span class="font-semibold">14</span>
+                </span>
+                <span class="flex items-center bg-elevated-surface px-3 py-1.5 rounded-lg">
+                  <span class="text-energy-yellow mr-1.5">⭐</span>
+                  <span class="font-semibold">2,840</span>
+                </span>
+              </div>
             </div>
-            <div class="text-5xl mb-4 bounce-animation" style="animation-delay: 0.3s">🎮</div>
-            <h3 class="text-2xl font-bold mb-4 text-success-green">The Solution</h3>
+
+            <!-- XP bar -->
+            <div class="mb-6">
+              <div class="flex justify-between text-xs text-text-muted mb-1.5">
+                <span>XP to next level</span>
+                <span>740 / 1000</span>
+              </div>
+              <div class="w-full h-2.5 bg-elevated-surface rounded-full overflow-hidden">
+                <div class="h-full w-3/4 bg-gradient-to-r from-brand-purple to-icon-default rounded-full"></div>
+              </div>
+            </div>
+
+            <!-- Today's quest -->
+            <div class="bg-elevated-surface rounded-2xl p-5 mb-4 border border-brand-purple/20">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs uppercase tracking-wide text-text-muted">Today's Quest</span>
+                <span class="text-xs bg-brand-purple/20 text-brand-purple px-2 py-0.5 rounded-full">+150 XP</span>
+              </div>
+              <h4 class="text-lg font-bold mb-2">Linear Equations · Chapter 3</h4>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-text-muted">5 of 8 skills</span>
+                <button class="bg-brand-purple text-white px-4 py-1.5 rounded-lg text-sm font-semibold">Continue</button>
+              </div>
+            </div>
+
+            <!-- Subject row -->
+            <div class="grid grid-cols-3 gap-3">
+              <div class="bg-elevated-surface rounded-xl p-3 text-center">
+                <div class="text-2xl mb-1">➗</div>
+                <div class="text-xs text-text-secondary">Math</div>
+              </div>
+              <div class="bg-elevated-surface rounded-xl p-3 text-center">
+                <div class="text-2xl mb-1">🔬</div>
+                <div class="text-xs text-text-secondary">Science</div>
+              </div>
+              <div class="bg-elevated-surface rounded-xl p-3 text-center">
+                <div class="text-2xl mb-1">📖</div>
+                <div class="text-xs text-text-secondary">English</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating badges around mockup -->
+          <div class="absolute -top-6 -right-4 bg-card-surface border border-energy-yellow/40 rounded-xl px-3 py-2 shadow-xl float-animation">
+            <div class="flex items-center space-x-2 text-sm">
+              <span class="text-energy-yellow text-lg">🏆</span>
+              <span class="font-semibold">Rank #3</span>
+            </div>
+          </div>
+          <div class="absolute -bottom-4 -left-4 bg-card-surface border border-heart-red/40 rounded-xl px-3 py-2 shadow-xl float-reverse">
+            <div class="flex items-center space-x-2 text-sm">
+              <span class="text-heart-red text-lg">⚔️</span>
+              <span class="font-semibold">Boss unlocked!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Problem → Solution -->
+    <section class="py-20 px-4 relative overflow-hidden">
+      <div class="absolute top-10 left-10 w-40 h-40 bg-heart-red/5 rounded-full blur-2xl pulse-animation"></div>
+      <div class="absolute bottom-10 right-10 w-40 h-40 bg-success-green/5 rounded-full blur-2xl pulse-animation" style="animation-delay: 1s"></div>
+
+      <div class="max-w-6xl mx-auto relative z-10">
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">
+          From <span class="text-heart-red">struggle</span> to
+          <span class="text-success-green">mastery</span>
+        </h2>
+        <p class="text-xl text-text-muted text-center mb-16 max-w-2xl mx-auto">
+          Traditional study tools weren't built for digital natives. Quest is.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-card-surface rounded-2xl p-8 border border-border-divider relative">
+            <div class="text-5xl mb-4">😓</div>
+            <h3 class="text-2xl font-bold mb-4 text-heart-red">The old way</h3>
             <ul class="space-y-3 text-text-secondary">
-              <li class="flex items-start slide-in" style="animation-delay: 0.1s">
-                <span class="text-success-green mr-3 text-xl icon-pulse">✓</span>
-                <span
-                  ><strong class="text-text-primary">Games:</strong> Interactive challenges that
-                  make learning fun</span
-                >
-              </li>
-              <li class="flex items-start slide-in" style="animation-delay: 0.2s">
-                <span
-                  class="text-success-green mr-3 text-xl icon-pulse"
-                  style="animation-delay: 0.2s"
-                  >✓</span
-                >
-                <span
-                  ><strong class="text-text-primary">Levels:</strong> Progressive difficulty that
-                  builds confidence</span
-                >
-              </li>
-              <li class="flex items-start slide-in" style="animation-delay: 0.3s">
-                <span
-                  class="text-success-green mr-3 text-xl icon-pulse"
-                  style="animation-delay: 0.4s"
-                  >✓</span
-                >
-                <span
-                  ><strong class="text-text-primary">Quests:</strong> Story-driven missions that
-                  contextualize learning</span
-                >
-              </li>
-              <li class="flex items-start slide-in" style="animation-delay: 0.4s">
-                <span
-                  class="text-success-green mr-3 text-xl icon-pulse"
-                  style="animation-delay: 0.6s"
-                  >✓</span
-                >
-                <span
-                  ><strong class="text-text-primary">Rewards:</strong> XP, badges, and achievements
-                  that motivate</span
-                >
-              </li>
+              <li class="flex items-start"><span class="text-heart-red mr-3">×</span><span>Boring, repetitive worksheets</span></li>
+              <li class="flex items-start"><span class="text-heart-red mr-3">×</span><span>No motivation to keep going</span></li>
+              <li class="flex items-start"><span class="text-heart-red mr-3">×</span><span>No clear sense of progress</span></li>
+              <li class="flex items-start"><span class="text-heart-red mr-3">×</span><span>Teachers can't see where students struggle</span></li>
+              <li class="flex items-start"><span class="text-heart-red mr-3">×</span><span>Exam prep feels disconnected from daily learning</span></li>
+            </ul>
+          </div>
+
+          <div class="bg-elevated-surface rounded-2xl p-8 border border-brand-purple/30 glow-animation">
+            <div class="text-5xl mb-4">🎮</div>
+            <h3 class="text-2xl font-bold mb-4 text-success-green">The Quest way</h3>
+            <ul class="space-y-3 text-text-secondary">
+              <li class="flex items-start"><span class="text-success-green mr-3 icon-pulse">✓</span><span><strong class="text-text-primary">Game loop:</strong> XP, levels, streaks keep students hooked</span></li>
+              <li class="flex items-start"><span class="text-success-green mr-3 icon-pulse">✓</span><span><strong class="text-text-primary">Bite-sized skills:</strong> step-by-step mastery, not overwhelm</span></li>
+              <li class="flex items-start"><span class="text-success-green mr-3 icon-pulse">✓</span><span><strong class="text-text-primary">Boss battles:</strong> chapter-end challenges that prove mastery</span></li>
+              <li class="flex items-start"><span class="text-success-green mr-3 icon-pulse">✓</span><span><strong class="text-text-primary">Teacher insights:</strong> real-time strength & weakness analytics</span></li>
+              <li class="flex items-start"><span class="text-success-green mr-3 icon-pulse">✓</span><span><strong class="text-text-primary">Built-in exam prep:</strong> Qudrat & Achievement tracks</span></li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Who Is This For? Section -->
-    <section class="py-20 px-4 bg-card-surface/50 relative overflow-hidden">
-      <!-- Floating educational icons -->
-      <div class="absolute top-20 left-10 text-6xl opacity-10 float-animation">📚</div>
-      <div class="absolute bottom-20 right-10 text-6xl opacity-10 float-reverse">🎯</div>
-      <div class="absolute top-1/2 right-20 text-5xl opacity-10 pulse-animation">💡</div>
+    <!-- Three Platforms -->
+    <section id="platforms" class="py-20 px-4 bg-card-surface/50 relative overflow-hidden">
+      <div class="absolute top-20 left-10 text-6xl opacity-10 float-animation">📱</div>
+      <div class="absolute bottom-20 right-10 text-6xl opacity-10 float-reverse">📊</div>
 
       <div class="max-w-6xl mx-auto relative z-10">
-        <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">Who Is This For?</h2>
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">One platform, three experiences</h2>
         <p class="text-xl text-text-muted text-center mb-16 max-w-2xl mx-auto">
-          Math Quest is designed for everyone in the educational ecosystem
+          Quest works for everyone in the learning loop — students, teachers, and administrators.
         </p>
 
         <div class="grid md:grid-cols-3 gap-8">
-          <!-- Students Card -->
-          <div
-            class="bg-card-surface rounded-2xl p-8 border border-border-divider hover:border-brand-purple/50 transition-all duration-300 transform hover:scale-105 relative"
-          >
-            <!-- Floating student badge -->
-            <div
-              class="absolute -top-3 -right-3 w-10 h-10 bg-energy-yellow/30 rounded-full flex items-center justify-center bounce-animation"
-            >
-              <span class="text-energy-yellow text-sm">⭐</span>
+          <!-- Student app -->
+          <div class="bg-card-surface rounded-2xl p-8 border border-border-divider hover:border-brand-purple/50 transition-all duration-300 transform hover:scale-105">
+            <div class="w-14 h-14 bg-brand-purple/20 rounded-xl flex items-center justify-center mb-5 icon-pulse">
+              <span class="text-3xl">🎓</span>
             </div>
-            <div class="text-6xl mb-6 text-center float-animation">🎓</div>
-            <h3 class="text-2xl font-bold mb-4 text-center">Students</h3>
-            <p class="text-text-secondary text-center leading-relaxed">
-              Turn math homework into an exciting adventure. Level up, earn rewards, and compete
-              with friends while mastering concepts at your own pace.
+            <div class="text-xs uppercase tracking-wide text-brand-purple mb-2 font-semibold">Mobile App · iOS & Android</div>
+            <h3 class="text-2xl font-bold mb-3">For students</h3>
+            <p class="text-text-secondary text-sm leading-relaxed mb-4">
+              Learn, practice, and compete. Every lesson is a quest, every chapter ends with a boss battle.
             </p>
-            <ul class="mt-6 space-y-2 text-text-muted text-sm">
-              <li class="flex items-center">
-                <span class="text-brand-purple mr-2 icon-pulse">→</span>
-                <span>Learn through interactive games</span>
-              </li>
-              <li class="flex items-center">
-                <span class="text-brand-purple mr-2 icon-pulse" style="animation-delay: 0.2s"
-                  >→</span
-                >
-                <span>Track your progress visually</span>
-              </li>
-              <li class="flex items-center">
-                <span class="text-brand-purple mr-2 icon-pulse" style="animation-delay: 0.4s"
-                  >→</span
-                >
-                <span>Build streaks and achievements</span>
-              </li>
+            <ul class="space-y-2 text-text-muted text-sm">
+              <li class="flex items-center"><span class="text-brand-purple mr-2">→</span> Subject chapters & skill trees</li>
+              <li class="flex items-center"><span class="text-brand-purple mr-2">→</span> XP, streaks, ranks, mascots</li>
+              <li class="flex items-center"><span class="text-brand-purple mr-2">→</span> Leaderboards & boss battles</li>
             </ul>
           </div>
 
-          <!-- Teachers Card -->
-          <div
-            class="bg-elevated-surface rounded-2xl p-8 border border-border-divider hover:border-brand-purple/50 transition-all duration-300 transform hover:scale-105 relative"
-          >
-            <!-- Floating teacher badge -->
-            <div
-              class="absolute -top-3 -right-3 w-10 h-10 bg-success-green/30 rounded-full flex items-center justify-center bounce-animation"
-              style="animation-delay: 0.3s"
-            >
-              <span class="text-success-green text-sm">📊</span>
+          <!-- Teacher panel -->
+          <div class="bg-elevated-surface rounded-2xl p-8 border border-success-green/30 hover:border-success-green/60 transition-all duration-300 transform hover:scale-105 glow-animation">
+            <div class="w-14 h-14 bg-success-green/20 rounded-xl flex items-center justify-center mb-5 icon-pulse" style="animation-delay: 0.2s">
+              <span class="text-3xl">👩‍🏫</span>
             </div>
-            <div class="text-6xl mb-6 text-center float-reverse">👩‍🏫</div>
-            <h3 class="text-2xl font-bold mb-4 text-center">Teachers</h3>
-            <p class="text-text-secondary text-center leading-relaxed">
-              Empower your classroom with gamified learning. Monitor student progress, assign
-              quests, and watch engagement soar.
+            <div class="text-xs uppercase tracking-wide text-success-green mb-2 font-semibold">Web Dashboard</div>
+            <h3 class="text-2xl font-bold mb-3">For teachers</h3>
+            <p class="text-text-secondary text-sm leading-relaxed mb-4">
+              See exactly where every student stands. Spot strengths, surface struggles, intervene at the right moment.
             </p>
-            <ul class="mt-6 space-y-2 text-text-muted text-sm">
-              <li class="flex items-center">
-                <span class="text-brand-purple mr-2 icon-pulse" style="animation-delay: 0.1s"
-                  >→</span
-                >
-                <span>Real-time progress insights</span>
-              </li>
-              <li class="flex items-center">
-                <span class="text-brand-purple mr-2 icon-pulse" style="animation-delay: 0.3s"
-                  >→</span
-                >
-                <span>Curriculum-aligned content</span>
-              </li>
-              <li class="flex items-center">
-                <span class="text-brand-purple mr-2 icon-pulse" style="animation-delay: 0.5s"
-                  >→</span
-                >
-                <span>Easy assignment management</span>
-              </li>
+            <ul class="space-y-2 text-text-muted text-sm">
+              <li class="flex items-center"><span class="text-success-green mr-2">→</span> Per-student progress tracking</li>
+              <li class="flex items-center"><span class="text-success-green mr-2">→</span> Strength & weakness analytics</li>
+              <li class="flex items-center"><span class="text-success-green mr-2">→</span> Class-wide learning insights</li>
             </ul>
           </div>
 
-          <!-- Schools Card -->
-          <div
-            class="bg-card-surface rounded-2xl p-8 border border-border-divider hover:border-brand-purple/50 transition-all duration-300 transform hover:scale-105 relative"
-          >
-            <!-- Floating school badge -->
-            <div
-              class="absolute -top-3 -right-3 w-10 h-10 bg-brand-purple/30 rounded-full flex items-center justify-center bounce-animation"
-              style="animation-delay: 0.6s"
-            >
-              <span class="text-brand-purple text-sm">🏆</span>
+          <!-- Admin panel -->
+          <div class="bg-card-surface rounded-2xl p-8 border border-border-divider hover:border-energy-yellow/50 transition-all duration-300 transform hover:scale-105">
+            <div class="w-14 h-14 bg-energy-yellow/20 rounded-xl flex items-center justify-center mb-5 icon-pulse" style="animation-delay: 0.4s">
+              <span class="text-3xl">⚙️</span>
             </div>
-            <div class="text-6xl mb-6 text-center pulse-animation">🏫</div>
-            <h3 class="text-2xl font-bold mb-4 text-center">Schools</h3>
-            <p class="text-text-secondary text-center leading-relaxed">
-              Transform your math curriculum district-wide. Comprehensive analytics, grade-based
-              progression, and seamless integration with existing systems.
+            <div class="text-xs uppercase tracking-wide text-energy-yellow mb-2 font-semibold">Admin Panel</div>
+            <h3 class="text-2xl font-bold mb-3">For schools</h3>
+            <p class="text-text-secondary text-sm leading-relaxed mb-4">
+              Manage content, users, and the whole platform from a single control center.
             </p>
-            <ul class="mt-6 space-y-2 text-text-muted text-sm">
-              <li class="flex items-center">
-                <span class="text-brand-purple mr-2 icon-pulse" style="animation-delay: 0.2s"
-                  >→</span
-                >
-                <span>School-wide analytics dashboard</span>
-              </li>
-              <li class="flex items-center">
-                <span class="text-brand-purple mr-2 icon-pulse" style="animation-delay: 0.4s"
-                  >→</span
-                >
-                <span>Scalable for all grade levels</span>
-              </li>
-              <li class="flex items-center">
-                <span class="text-brand-purple mr-2 icon-pulse" style="animation-delay: 0.6s"
-                  >→</span
-                >
-                <span>Administrative oversight tools</span>
-              </li>
+            <ul class="space-y-2 text-text-muted text-sm">
+              <li class="flex items-center"><span class="text-energy-yellow mr-2">→</span> Curriculum & content management</li>
+              <li class="flex items-center"><span class="text-energy-yellow mr-2">→</span> User & role administration</li>
+              <li class="flex items-center"><span class="text-energy-yellow mr-2">→</span> School-wide analytics</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- How It Works Section -->
-    <section class="py-20 px-4 relative overflow-hidden">
-      <!-- Background flow indicators -->
-      <div
-        class="absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-purple/20 to-transparent hidden md:block"
-      ></div>
-
+    <!-- How It Works -->
+    <section id="how" class="py-20 px-4 relative overflow-hidden">
       <div class="max-w-6xl mx-auto relative z-10">
-        <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">How It Works</h2>
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">How students learn on Quest</h2>
         <p class="text-xl text-text-muted text-center mb-16 max-w-2xl mx-auto">
-          A simple, intuitive flow that guides students from sign-in to mastery
+          Five simple steps from sign-in to mastery.
         </p>
 
-        <div class="relative">
-          <!-- Flow Steps -->
-          <div class="grid md:grid-cols-4 gap-6 relative">
-            <!-- Step 1: Sign In -->
-            <div
-              class="bg-card-surface rounded-xl p-6 border border-border-divider text-center relative z-10 hover:border-brand-purple/50 transition-all duration-300"
-            >
-              <div
-                class="w-16 h-16 bg-brand-purple/20 rounded-full flex items-center justify-center mx-auto mb-4 icon-pulse"
-              >
-                <span class="text-2xl">🔐</span>
-              </div>
-              <div
-                class="w-8 h-8 bg-brand-purple rounded-full flex items-center justify-center mx-auto mb-4 text-sm font-bold bounce-animation"
-              >
-                1
-              </div>
-              <h3 class="text-xl font-bold mb-2">Sign In</h3>
-              <p class="text-text-muted text-sm">Quick access with secure authentication</p>
+        <div class="grid md:grid-cols-5 gap-6">
+          <!-- Step 1 -->
+          <div class="bg-card-surface rounded-xl p-5 border border-border-divider text-center hover:border-brand-purple/50 transition-all">
+            <div class="w-14 h-14 bg-brand-purple/20 rounded-full flex items-center justify-center mx-auto mb-3 icon-pulse">
+              <span class="text-2xl">🔐</span>
             </div>
-
-            <!-- Arrow -->
-            <div
-              class="hidden md:block absolute top-1/2 left-1/4 transform -translate-y-1/2 -translate-x-1/2 z-0 arrow-flow"
-            >
-              <svg
-                class="w-12 h-12 text-brand-purple"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                ></path>
-              </svg>
+            <div class="w-7 h-7 bg-brand-purple rounded-full flex items-center justify-center mx-auto mb-3 text-xs font-bold">1</div>
+            <h3 class="font-bold mb-1">Sign in</h3>
+            <p class="text-text-muted text-xs">Quick, secure access</p>
+          </div>
+          <!-- Step 2 -->
+          <div class="bg-card-surface rounded-xl p-5 border border-border-divider text-center hover:border-brand-purple/50 transition-all">
+            <div class="w-14 h-14 bg-brand-purple/20 rounded-full flex items-center justify-center mx-auto mb-3 icon-pulse" style="animation-delay: 0.15s">
+              <span class="text-2xl">📚</span>
             </div>
-
-            <!-- Step 2: Courses -->
-            <div
-              class="bg-card-surface rounded-xl p-6 border border-border-divider text-center relative z-10 hover:border-brand-purple/50 transition-all duration-300"
-            >
-              <div
-                class="w-16 h-16 bg-brand-purple/20 rounded-full flex items-center justify-center mx-auto mb-4 icon-pulse"
-                style="animation-delay: 0.2s"
-              >
-                <span class="text-2xl">📚</span>
-              </div>
-              <div
-                class="w-8 h-8 bg-brand-purple rounded-full flex items-center justify-center mx-auto mb-4 text-sm font-bold bounce-animation"
-                style="animation-delay: 0.2s"
-              >
-                2
-              </div>
-              <h3 class="text-xl font-bold mb-2">Courses</h3>
-              <p class="text-text-muted text-sm">Browse grade-appropriate math courses</p>
+            <div class="w-7 h-7 bg-brand-purple rounded-full flex items-center justify-center mx-auto mb-3 text-xs font-bold">2</div>
+            <h3 class="font-bold mb-1">Pick a subject</h3>
+            <p class="text-text-muted text-xs">Aligned to your grade</p>
+          </div>
+          <!-- Step 3 -->
+          <div class="bg-card-surface rounded-xl p-5 border border-border-divider text-center hover:border-brand-purple/50 transition-all">
+            <div class="w-14 h-14 bg-brand-purple/20 rounded-full flex items-center justify-center mx-auto mb-3 icon-pulse" style="animation-delay: 0.3s">
+              <span class="text-2xl">📖</span>
             </div>
-
-            <!-- Arrow -->
-            <div
-              class="hidden md:block absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 z-0 arrow-flow"
-              style="animation-delay: 0.3s"
-            >
-              <svg
-                class="w-12 h-12 text-brand-purple"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                ></path>
-              </svg>
+            <div class="w-7 h-7 bg-brand-purple rounded-full flex items-center justify-center mx-auto mb-3 text-xs font-bold">3</div>
+            <h3 class="font-bold mb-1">Open a chapter</h3>
+            <p class="text-text-muted text-xs">Skills, step by step</p>
+          </div>
+          <!-- Step 4 -->
+          <div class="bg-card-surface rounded-xl p-5 border border-border-divider text-center hover:border-brand-purple/50 transition-all">
+            <div class="w-14 h-14 bg-brand-purple/20 rounded-full flex items-center justify-center mx-auto mb-3 icon-pulse" style="animation-delay: 0.45s">
+              <span class="text-2xl">🎮</span>
             </div>
-
-            <!-- Step 3: Chapters -->
-            <div
-              class="bg-card-surface rounded-xl p-6 border border-border-divider text-center relative z-10 hover:border-brand-purple/50 transition-all duration-300"
-            >
-              <div
-                class="w-16 h-16 bg-brand-purple/20 rounded-full flex items-center justify-center mx-auto mb-4 icon-pulse"
-                style="animation-delay: 0.4s"
-              >
-                <span class="text-2xl">📖</span>
-              </div>
-              <div
-                class="w-8 h-8 bg-brand-purple rounded-full flex items-center justify-center mx-auto mb-4 text-sm font-bold bounce-animation"
-                style="animation-delay: 0.4s"
-              >
-                3
-              </div>
-              <h3 class="text-xl font-bold mb-2">Chapters</h3>
-              <p class="text-text-muted text-sm">Select specific topics to master</p>
+            <div class="w-7 h-7 bg-brand-purple rounded-full flex items-center justify-center mx-auto mb-3 text-xs font-bold">4</div>
+            <h3 class="font-bold mb-1">Play & practice</h3>
+            <p class="text-text-muted text-xs">Earn XP, build streaks</p>
+          </div>
+          <!-- Step 5 -->
+          <div class="bg-elevated-surface rounded-xl p-5 border border-heart-red/40 text-center glow-animation">
+            <div class="w-14 h-14 bg-heart-red/20 rounded-full flex items-center justify-center mx-auto mb-3 icon-pulse" style="animation-delay: 0.6s">
+              <span class="text-2xl">⚔️</span>
             </div>
+            <div class="w-7 h-7 bg-heart-red rounded-full flex items-center justify-center mx-auto mb-3 text-xs font-bold">5</div>
+            <h3 class="font-bold mb-1">Beat the boss</h3>
+            <p class="text-text-muted text-xs">Prove your mastery</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <!-- Arrow -->
-            <div
-              class="hidden md:block absolute top-1/2 left-3/4 transform -translate-y-1/2 -translate-x-1/2 z-0 arrow-flow"
-              style="animation-delay: 0.6s"
-            >
-              <svg
-                class="w-12 h-12 text-brand-purple"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                ></path>
-              </svg>
+    <!-- Gamification Spotlight -->
+    <section class="py-20 px-4 bg-card-surface/50 relative overflow-hidden">
+      <div class="max-w-6xl mx-auto relative z-10">
+        <div class="text-center mb-16">
+          <div class="inline-block bg-energy-yellow/10 border border-energy-yellow/30 text-energy-yellow text-xs uppercase tracking-wider px-3 py-1 rounded-full mb-4 font-semibold">
+            Gamification engine
+          </div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-4">Built to keep students coming back</h2>
+          <p class="text-xl text-text-muted max-w-2xl mx-auto">
+            Every mechanic in Quest is designed for one thing: daily practice that students actually enjoy.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-card-surface rounded-xl p-5 border border-border-divider hover:border-energy-yellow/40 transition-all">
+            <div class="text-3xl mb-3">⭐</div>
+            <h3 class="font-bold mb-1">XP & Levels</h3>
+            <p class="text-text-muted text-sm">Earn XP on every answer, level up, unlock new content.</p>
+          </div>
+          <div class="bg-card-surface rounded-xl p-5 border border-border-divider hover:border-streak-orange/40 transition-all">
+            <div class="text-3xl mb-3">🔥</div>
+            <h3 class="font-bold mb-1">Streaks</h3>
+            <p class="text-text-muted text-sm">Daily streaks build the habit. Miss a day, lose the flame.</p>
+          </div>
+          <div class="bg-card-surface rounded-xl p-5 border border-border-divider hover:border-success-green/40 transition-all">
+            <div class="text-3xl mb-3">🏆</div>
+            <h3 class="font-bold mb-1">Leaderboards</h3>
+            <p class="text-text-muted text-sm">Compete weekly with classmates and climb the ranks.</p>
+          </div>
+          <div class="bg-card-surface rounded-xl p-5 border border-border-divider hover:border-brand-purple/40 transition-all">
+            <div class="text-3xl mb-3">🛡️</div>
+            <h3 class="font-bold mb-1">Ranks & Status</h3>
+            <p class="text-text-muted text-sm">From Novice to Scholar — earn status that reflects effort.</p>
+          </div>
+          <div class="bg-card-surface rounded-xl p-5 border border-border-divider hover:border-icon-default/40 transition-all">
+            <div class="text-3xl mb-3">🦊</div>
+            <h3 class="font-bold mb-1">Unlockable Mascots</h3>
+            <p class="text-text-muted text-sm">Collect mascots as you progress through subjects.</p>
+          </div>
+          <div class="bg-card-surface rounded-xl p-5 border border-border-divider hover:border-heart-red/40 transition-all">
+            <div class="text-3xl mb-3">⚔️</div>
+            <h3 class="font-bold mb-1">Boss Battles</h3>
+            <p class="text-text-muted text-sm">End-of-chapter showdowns that test real mastery.</p>
+          </div>
+          <div class="bg-card-surface rounded-xl p-5 border border-border-divider hover:border-success-green/40 transition-all">
+            <div class="text-3xl mb-3">🎯</div>
+            <h3 class="font-bold mb-1">Daily Objectives</h3>
+            <p class="text-text-muted text-sm">Clear daily and weekly goals turn practice into a plan.</p>
+          </div>
+          <div class="bg-card-surface rounded-xl p-5 border border-border-divider hover:border-brand-purple/40 transition-all">
+            <div class="text-3xl mb-3">💡</div>
+            <h3 class="font-bold mb-1">Step-by-Step Explanations</h3>
+            <p class="text-text-muted text-sm">Understand the "why" behind every answer, not just the result.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Exam Prep -->
+    <section id="exams" class="py-20 px-4 relative overflow-hidden">
+      <div class="absolute top-10 right-10 text-6xl opacity-5 float-animation">📝</div>
+      <div class="absolute bottom-10 left-10 text-6xl opacity-5 float-reverse">🎯</div>
+
+      <div class="max-w-6xl mx-auto relative z-10">
+        <div class="text-center mb-12">
+          <div class="inline-block bg-brand-purple/10 border border-brand-purple/30 text-brand-purple text-xs uppercase tracking-wider px-3 py-1 rounded-full mb-4 font-semibold">
+            National exam prep
+          </div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-4">Ready for Qudrat & Achievement</h2>
+          <p class="text-xl text-text-muted max-w-2xl mx-auto">
+            Dedicated tracks built around Saudi Arabia's national assessments — practiced the same way students already learn.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-elevated-surface rounded-2xl p-8 border border-brand-purple/30 relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-brand-purple/10 rounded-full blur-3xl"></div>
+            <div class="relative z-10">
+              <div class="text-5xl mb-4">📐</div>
+              <h3 class="text-2xl font-bold mb-2">Qudrat (القدرات)</h3>
+              <p class="text-text-secondary mb-4">
+                General Aptitude Test prep with quantitative and verbal sections — broken into focused skills students can level up over time.
+              </p>
+              <ul class="space-y-2 text-text-muted text-sm">
+                <li class="flex items-center"><span class="text-brand-purple mr-2">→</span> Quantitative reasoning practice</li>
+                <li class="flex items-center"><span class="text-brand-purple mr-2">→</span> Verbal reasoning skill trees</li>
+                <li class="flex items-center"><span class="text-brand-purple mr-2">→</span> Timed mock challenges</li>
+              </ul>
             </div>
+          </div>
 
-            <!-- Step 4: Play & Learn -->
-            <div
-              class="bg-elevated-surface rounded-xl p-6 border border-brand-purple/50 text-center relative z-10 hover:border-brand-purple transition-all duration-300 glow-animation"
-            >
-              <div
-                class="w-16 h-16 bg-brand-purple/30 rounded-full flex items-center justify-center mx-auto mb-4 icon-pulse"
-                style="animation-delay: 0.6s"
-              >
-                <span class="text-2xl">🎮</span>
-              </div>
-              <div
-                class="w-8 h-8 bg-brand-purple rounded-full flex items-center justify-center mx-auto mb-4 text-sm font-bold bounce-animation"
-                style="animation-delay: 0.6s"
-              >
-                4
-              </div>
-              <h3 class="text-xl font-bold mb-2">Play & Learn</h3>
-              <p class="text-text-muted text-sm">Engage with interactive games and earn rewards</p>
+          <div class="bg-elevated-surface rounded-2xl p-8 border border-success-green/30 relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-success-green/10 rounded-full blur-3xl"></div>
+            <div class="relative z-10">
+              <div class="text-5xl mb-4">🎓</div>
+              <h3 class="text-2xl font-bold mb-2">Achievement (التحصيلي)</h3>
+              <p class="text-text-secondary mb-4">
+                Subject-based Achievement Test prep aligned with the Saudi high-school curriculum — across Math, Physics, Chemistry, Biology, and English.
+              </p>
+              <ul class="space-y-2 text-text-muted text-sm">
+                <li class="flex items-center"><span class="text-success-green mr-2">→</span> Curriculum-aligned skill chapters</li>
+                <li class="flex items-center"><span class="text-success-green mr-2">→</span> Difficulty-tiered questions</li>
+                <li class="flex items-center"><span class="text-success-green mr-2">→</span> Subject-by-subject mastery tracking</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Key Features Section -->
-    <section class="py-20 px-4 bg-card-surface/50 relative overflow-hidden">
-      <!-- Floating feature indicators -->
-      <div
-        class="absolute top-10 right-20 w-24 h-24 bg-energy-yellow/5 rounded-full blur-2xl pulse-animation"
-      ></div>
-      <div
-        class="absolute bottom-10 left-20 w-24 h-24 bg-brand-purple/5 rounded-full blur-2xl pulse-animation"
-        style="animation-delay: 1s"
-      ></div>
-
+    <!-- Key Features (compact grid) -->
+    <section id="features" class="py-20 px-4 bg-card-surface/50 relative overflow-hidden">
       <div class="max-w-6xl mx-auto relative z-10">
-        <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">Key Features</h2>
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">Everything in one place</h2>
         <p class="text-xl text-text-muted text-center mb-16 max-w-2xl mx-auto">
-          Everything you need for engaging, effective math education
+          A complete learning system — not a single feature dressed up as one.
         </p>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Feature 1: Gamified Learning -->
-          <div
-            class="bg-card-surface rounded-xl p-6 border border-border-divider hover:border-energy-yellow/30 transition-all duration-300 transform hover:scale-105"
-          >
-            <div class="flex items-center mb-4">
-              <div
-                class="w-12 h-12 bg-energy-yellow/20 rounded-lg flex items-center justify-center mr-4 icon-pulse"
-              >
-                <span class="text-2xl">⭐</span>
-              </div>
-              <h3 class="text-xl font-bold">Gamified Learning</h3>
+          <div class="bg-card-surface rounded-xl p-6 border border-border-divider hover:border-energy-yellow/40 transition-all duration-300 transform hover:scale-105">
+            <div class="flex items-center mb-3">
+              <div class="w-11 h-11 bg-energy-yellow/20 rounded-lg flex items-center justify-center mr-3"><span class="text-xl">⭐</span></div>
+              <h3 class="text-lg font-bold">Gamified Learning</h3>
             </div>
-            <p class="text-text-secondary text-sm leading-relaxed">
-              Earn XP, level up, and maintain streaks. Every problem solved is a step toward your
-              next achievement.
-            </p>
+            <p class="text-text-secondary text-sm leading-relaxed">XP, levels, and rewards on every question.</p>
           </div>
-
-          <!-- Feature 2: Grade-Based Curriculum -->
-          <div
-            class="bg-card-surface rounded-xl p-6 border border-border-divider hover:border-success-green/30 transition-all duration-300 transform hover:scale-105"
-          >
-            <div class="flex items-center mb-4">
-              <div
-                class="w-12 h-12 bg-success-green/20 rounded-lg flex items-center justify-center mr-4 icon-pulse"
-                style="animation-delay: 0.2s"
-              >
-                <span class="text-2xl">📊</span>
-              </div>
-              <h3 class="text-xl font-bold">Grade-Based Curriculum</h3>
+          <div class="bg-card-surface rounded-xl p-6 border border-border-divider hover:border-success-green/40 transition-all duration-300 transform hover:scale-105">
+            <div class="flex items-center mb-3">
+              <div class="w-11 h-11 bg-success-green/20 rounded-lg flex items-center justify-center mr-3"><span class="text-xl">📊</span></div>
+              <h3 class="text-lg font-bold">Grade-Based Curriculum</h3>
             </div>
-            <p class="text-text-secondary text-sm leading-relaxed">
-              Content aligned with standard curricula, organized by grade level for seamless
-              integration.
-            </p>
+            <p class="text-text-secondary text-sm leading-relaxed">Aligned content for every grade from 1 to 12.</p>
           </div>
-
-          <!-- Feature 3: Adaptive Learning -->
-          <div
-            class="bg-card-surface rounded-xl p-6 border border-border-divider hover:border-brand-purple/30 transition-all duration-300 transform hover:scale-105"
-          >
-            <div class="flex items-center mb-4">
-              <div
-                class="w-12 h-12 bg-brand-purple/20 rounded-lg flex items-center justify-center mr-4 icon-pulse"
-                style="animation-delay: 0.4s"
-              >
-                <span class="text-2xl">🧠</span>
-              </div>
-              <h3 class="text-xl font-bold">Adaptive Learning</h3>
+          <div class="bg-card-surface rounded-xl p-6 border border-border-divider hover:border-brand-purple/40 transition-all duration-300 transform hover:scale-105">
+            <div class="flex items-center mb-3">
+              <div class="w-11 h-11 bg-brand-purple/20 rounded-lg flex items-center justify-center mr-3"><span class="text-xl">🧠</span></div>
+              <h3 class="text-lg font-bold">Adaptive Difficulty</h3>
             </div>
-            <p class="text-text-secondary text-sm leading-relaxed">
-              Personalized difficulty adjustment based on performance, ensuring optimal challenge
-              levels.
-            </p>
+            <p class="text-text-secondary text-sm leading-relaxed">Questions tier up as students improve.</p>
           </div>
-
-          <!-- Feature 4: Progress Tracking -->
-          <div
-            class="bg-card-surface rounded-xl p-6 border border-border-divider hover:border-streak-orange/30 transition-all duration-300 transform hover:scale-105"
-          >
-            <div class="flex items-center mb-4">
-              <div
-                class="w-12 h-12 bg-streak-orange/20 rounded-lg flex items-center justify-center mr-4 icon-pulse"
-                style="animation-delay: 0.6s"
-              >
-                <span class="text-2xl">📈</span>
-              </div>
-              <h3 class="text-xl font-bold">Progress Tracking</h3>
+          <div class="bg-card-surface rounded-xl p-6 border border-border-divider hover:border-streak-orange/40 transition-all duration-300 transform hover:scale-105">
+            <div class="flex items-center mb-3">
+              <div class="w-11 h-11 bg-streak-orange/20 rounded-lg flex items-center justify-center mr-3"><span class="text-xl">📈</span></div>
+              <h3 class="text-lg font-bold">Progress Tracking</h3>
             </div>
-            <p class="text-text-secondary text-sm leading-relaxed">
-              Visual dashboards show mastery, completion rates, and areas for improvement at a
-              glance.
-            </p>
+            <p class="text-text-secondary text-sm leading-relaxed">Visual mastery dashboards for every skill.</p>
           </div>
-
-          <!-- Feature 5: Boss Battles -->
-          <div
-            class="bg-card-surface rounded-xl p-6 border border-border-divider hover:border-heart-red/30 transition-all duration-300 transform hover:scale-105"
-          >
-            <div class="flex items-center mb-4">
-              <div
-                class="w-12 h-12 bg-heart-red/20 rounded-lg flex items-center justify-center mr-4 icon-pulse"
-                style="animation-delay: 0.8s"
-              >
-                <span class="text-2xl">⚔️</span>
-              </div>
-              <h3 class="text-xl font-bold">Boss Battles & Challenges</h3>
+          <div class="bg-card-surface rounded-xl p-6 border border-border-divider hover:border-heart-red/40 transition-all duration-300 transform hover:scale-105">
+            <div class="flex items-center mb-3">
+              <div class="w-11 h-11 bg-heart-red/20 rounded-lg flex items-center justify-center mr-3"><span class="text-xl">⚔️</span></div>
+              <h3 class="text-lg font-bold">Boss Battles</h3>
             </div>
-            <p class="text-text-secondary text-sm leading-relaxed">
-              Epic challenges and boss battles test mastery and unlock special rewards and
-              achievements.
-            </p>
+            <p class="text-text-secondary text-sm leading-relaxed">Chapter-end challenges that test real mastery.</p>
           </div>
-
-          <!-- Feature 6: Social Learning -->
-          <div
-            class="bg-card-surface rounded-xl p-6 border border-border-divider hover:border-icon-default/30 transition-all duration-300 transform hover:scale-105"
-          >
-            <div class="flex items-center mb-4">
-              <div
-                class="w-12 h-12 bg-icon-default/20 rounded-lg flex items-center justify-center mr-4 icon-pulse"
-                style="animation-delay: 1s"
-              >
-                <span class="text-2xl">👥</span>
-              </div>
-              <h3 class="text-xl font-bold">Social Learning</h3>
+          <div class="bg-card-surface rounded-xl p-6 border border-border-divider hover:border-icon-default/40 transition-all duration-300 transform hover:scale-105">
+            <div class="flex items-center mb-3">
+              <div class="w-11 h-11 bg-icon-default/20 rounded-lg flex items-center justify-center mr-3"><span class="text-xl">👥</span></div>
+              <h3 class="text-lg font-bold">Social Learning</h3>
             </div>
-            <p class="text-text-secondary text-sm leading-relaxed">
-              Compete with classmates, share achievements, and learn together in a supportive
-              community.
-            </p>
+            <p class="text-text-secondary text-sm leading-relaxed">Leaderboards and shared achievements.</p>
+          </div>
+          <div class="bg-card-surface rounded-xl p-6 border border-border-divider hover:border-streak-orange/40 transition-all duration-300 transform hover:scale-105">
+            <div class="flex items-center mb-3">
+              <div class="w-11 h-11 bg-streak-orange/20 rounded-lg flex items-center justify-center mr-3"><span class="text-xl">🔥</span></div>
+              <h3 class="text-lg font-bold">Streak System</h3>
+            </div>
+            <p class="text-text-secondary text-sm leading-relaxed">Daily habit-building that actually sticks.</p>
+          </div>
+          <div class="bg-card-surface rounded-xl p-6 border border-border-divider hover:border-success-green/40 transition-all duration-300 transform hover:scale-105">
+            <div class="flex items-center mb-3">
+              <div class="w-11 h-11 bg-success-green/20 rounded-lg flex items-center justify-center mr-3"><span class="text-xl">🎯</span></div>
+              <h3 class="text-lg font-bold">Objective System</h3>
+            </div>
+            <p class="text-text-secondary text-sm leading-relaxed">Daily and weekly goals that focus practice.</p>
+          </div>
+          <div class="bg-card-surface rounded-xl p-6 border border-border-divider hover:border-brand-purple/40 transition-all duration-300 transform hover:scale-105">
+            <div class="flex items-center mb-3">
+              <div class="w-11 h-11 bg-brand-purple/20 rounded-lg flex items-center justify-center mr-3"><span class="text-xl">💡</span></div>
+              <h3 class="text-lg font-bold">Step-by-Step Explanations</h3>
+            </div>
+            <p class="text-text-secondary text-sm leading-relaxed">Every answer comes with a guided breakdown.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Technology & Trust Section -->
-    <section class="py-20 px-4 relative overflow-hidden">
-      <!-- Tech-themed background elements -->
-      <div class="absolute top-20 left-10 text-5xl opacity-5 tech-float">⚙️</div>
-      <div
-        class="absolute bottom-20 right-10 text-5xl opacity-5 tech-float"
-        style="animation-delay: 2s"
-      >
-        🔧
-      </div>
-      <div class="absolute top-1/2 left-1/4 text-4xl opacity-5 rotate-slow">💻</div>
-
-      <div class="max-w-6xl mx-auto relative z-10">
-        <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">Built for Modern Education</h2>
-        <p class="text-xl text-text-muted text-center mb-16 max-w-2xl mx-auto">
-          Powered by cutting-edge technology, designed for schools and education systems
+    <!-- Final CTA -->
+    <section class="py-24 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-r from-brand-purple/10 via-transparent to-energy-yellow/10"></div>
+      <div class="max-w-4xl mx-auto text-center relative z-10">
+        <h2 class="text-4xl md:text-6xl font-bold mb-6">
+          Ready to turn studying into <span class="text-brand-purple">a quest?</span>
+        </h2>
+        <p class="text-xl text-text-muted mb-10 max-w-2xl mx-auto">
+          Open the app, pick a subject, and start your first quest today.
         </p>
-
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- AI-Powered -->
-          <div
-            class="bg-elevated-surface rounded-xl p-8 border border-border-divider text-center hover:border-brand-purple/30 transition-all duration-300 transform hover:scale-105 relative"
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="https://questcorp.net/welcome"
+            class="inline-flex items-center justify-center bg-brand-purple hover:bg-brand-purple/90 text-white font-semibold px-10 py-4 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-brand-purple/30 bounce-animation"
           >
-            <!-- Floating AI indicator -->
-            <div
-              class="absolute -top-2 -right-2 w-8 h-8 bg-brand-purple/20 rounded-full flex items-center justify-center pulse-animation"
-            >
-              <span class="text-brand-purple text-xs">AI</span>
-            </div>
-            <div class="text-5xl mb-4 tech-float">🤖</div>
-            <h3 class="text-xl font-bold mb-3">AI-Powered Learning</h3>
-            <p class="text-text-secondary text-sm leading-relaxed">
-              Intelligent algorithms adapt to each student's learning style and pace, providing
-              personalized recommendations.
-            </p>
-          </div>
-
-          <!-- Mobile-First -->
-          <div
-            class="bg-elevated-surface rounded-xl p-8 border border-border-divider text-center hover:border-success-green/30 transition-all duration-300 transform hover:scale-105 relative"
+            Launch Quest
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </a>
+          <a
+            href="#contact"
+            class="inline-flex items-center justify-center bg-elevated-surface hover:bg-elevated-surface/80 text-text-primary font-semibold px-10 py-4 rounded-lg text-lg border border-border-divider transition-all duration-300"
           >
-            <!-- Floating mobile indicator -->
-            <div
-              class="absolute -top-2 -right-2 w-8 h-8 bg-success-green/20 rounded-full flex items-center justify-center pulse-animation"
-              style="animation-delay: 0.3s"
-            >
-              <span class="text-success-green text-xs">📲</span>
-            </div>
-            <div class="text-5xl mb-4 tech-float" style="animation-delay: 1s">📱</div>
-            <h3 class="text-xl font-bold mb-3">Mobile-First Experience</h3>
-            <p class="text-text-secondary text-sm leading-relaxed">
-              Access Math Quest anywhere, anytime. Optimized for tablets, phones, and desktops with
-              seamless synchronization.
-            </p>
-          </div>
-
-          <!-- School Integration -->
-          <div
-            class="bg-elevated-surface rounded-xl p-8 border border-border-divider text-center hover:border-energy-yellow/30 transition-all duration-300 transform hover:scale-105 relative"
-          >
-            <!-- Floating integration indicator -->
-            <div
-              class="absolute -top-2 -right-2 w-8 h-8 bg-energy-yellow/20 rounded-full flex items-center justify-center pulse-animation"
-              style="animation-delay: 0.6s"
-            >
-              <span class="text-energy-yellow text-xs">✓</span>
-            </div>
-            <div class="text-5xl mb-4 tech-float" style="animation-delay: 2s">🔗</div>
-            <h3 class="text-xl font-bold mb-3">Built for Schools</h3>
-            <p class="text-text-secondary text-sm leading-relaxed">
-              Designed with education systems in mind. Easy integration, comprehensive analytics,
-              and administrative controls.
-            </p>
-          </div>
+            Talk to us
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact -->
     <section id="contact" class="py-20 px-4 bg-card-surface/50 relative overflow-hidden">
-      <!-- Communication-themed background elements -->
       <div class="absolute top-10 left-10 text-4xl opacity-5 float-animation">💬</div>
       <div class="absolute bottom-10 right-10 text-4xl opacity-5 float-reverse">📧</div>
-      <div class="absolute top-1/2 left-1/3 text-3xl opacity-5 pulse-animation">✉️</div>
 
       <div class="max-w-4xl mx-auto relative z-10">
-        <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">Get in Touch</h2>
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">Get in touch</h2>
         <p class="text-xl text-text-muted text-center mb-12 max-w-2xl mx-auto">
-          Ready to transform math education? Let's discuss how Math Quest can benefit your school or
-          organization.
+          Schools, teachers, or curious parents — we'd love to hear from you.
         </p>
 
-        <div
-          class="bg-elevated-surface rounded-2xl p-8 md:p-12 border border-border-divider hover:border-brand-purple/30 transition-all duration-300 relative"
-        >
-          <!-- Floating contact indicator -->
-          <div
-            class="absolute -top-3 -right-3 w-12 h-12 bg-brand-purple/20 rounded-full flex items-center justify-center pulse-animation"
-          >
-            <span class="text-brand-purple text-lg">📞</span>
-          </div>
-
-          <div class="grid md:grid-cols-2 gap-8 mb-8">
+        <div class="bg-elevated-surface rounded-2xl p-8 md:p-12 border border-border-divider hover:border-brand-purple/30 transition-all duration-300">
+          <div class="grid md:grid-cols-2 gap-8">
             <!-- Email -->
-            <div
-              class="flex items-start hover:transform hover:scale-105 transition-all duration-300"
-            >
-              <div
-                class="w-12 h-12 bg-brand-purple/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0 icon-pulse"
-              >
-                <svg
-                  class="w-6 h-6 text-brand-purple"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  ></path>
+            <div class="flex items-start">
+              <div class="w-12 h-12 bg-brand-purple/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0 icon-pulse">
+                <svg class="w-6 h-6 text-brand-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                 </svg>
               </div>
               <div>
                 <h3 class="text-lg font-semibold mb-1">Email</h3>
-                <a
-                  href="mailto:questailearning@gmail.com"
-                  class="text-brand-purple hover:text-brand-purple/80 transition-colors"
-                >
-                  questailearning@gmail.com
-                </a>
+                <a href="mailto:quest@questcorp.net" class="text-brand-purple hover:text-brand-purple/80 transition-colors">quest@questcorp.net</a>
               </div>
             </div>
 
-            <!-- Email  -->
-            <div
-              class="flex items-start hover:transform hover:scale-105 transition-all duration-300"
-            >
-              <div
-                class="w-12 h-12 bg-brand-purple/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0 icon-pulse"
-              >
-                <svg
-                  class="w-6 h-6 text-brand-purple"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  ></path>
+            <!-- Website -->
+            <div class="flex items-start">
+              <div class="w-12 h-12 bg-brand-purple/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0 icon-pulse" style="animation-delay: 0.3s">
+                <svg class="w-6 h-6 text-brand-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 010 18M12 3a14 14 0 000 18"></path>
                 </svg>
               </div>
               <div>
-                <h3 class="text-lg font-semibold mb-1">Email</h3>
-                <a
-                  href="mailto:yassermemo@gmail.com"
-                  class="text-brand-purple hover:text-brand-purple/80 transition-colors"
-                >
-                  yassermemo@gmail.com
-                </a>
+                <h3 class="text-lg font-semibold mb-1">Website</h3>
+                <a href="https://questcorp.net" target="_blank" rel="noopener noreferrer" class="text-brand-purple hover:text-brand-purple/80 transition-colors">questcorp.net</a>
               </div>
             </div>
-
-            <!-- Phone (Optional) -->
-            <!-- <div
-              class="flex items-start hover:transform hover:scale-105 transition-all duration-300"
-            >
-              <div
-                class="w-12 h-12 bg-brand-purple/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0 icon-pulse"
-                style="animation-delay: 0.3s"
-              >
-                <svg
-                  class="w-6 h-6 text-brand-purple"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                  ></path>
-                </svg>
-              </div>
-              <div>
-                <h3 class="text-lg font-semibold mb-1">Phone</h3>
-                <a
-                  href="tel:+1234567890"
-                  class="text-text-secondary hover:text-brand-purple transition-colors"
-                >
-                  +1 (234) 567-890
-                </a>
-              </div>
-            </div> -->
           </div>
-
-          <!-- CTA Button -->
-          <!-- <div class="text-center">
-            <a
-              href="mailto:contact@mathquest.com"
-              class="inline-block bg-brand-purple hover:bg-brand-purple/90 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-brand-purple/30 bounce-animation"
-            >
-              Contact Us Now
-            </a>
-          </div> -->
         </div>
       </div>
     </section>
@@ -1078,13 +768,22 @@
     <!-- Footer -->
     <footer class="py-12 px-4 border-t border-border-divider">
       <div class="max-w-6xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-          <div class="mb-6 md:mb-0 text-center md:text-left">
-            <h3 class="text-2xl font-bold mb-2">Math Quest</h3>
-            <p class="text-text-muted text-sm">Learning math as easy as playing a game</p>
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-purple to-icon-default flex items-center justify-center font-bold">Q</div>
+            <div>
+              <h3 class="text-xl font-bold leading-tight">Quest</h3>
+              <p class="text-text-muted text-xs">Learning, leveled up.</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap justify-center gap-6 text-text-muted text-sm">
+            <a href="#features" class="hover:text-text-primary transition-colors">Features</a>
+            <a href="#platforms" class="hover:text-text-primary transition-colors">Platforms</a>
+            <a href="#exams" class="hover:text-text-primary transition-colors">Exam Prep</a>
+            <a href="#contact" class="hover:text-text-primary transition-colors">Contact</a>
           </div>
           <div class="text-text-muted text-sm text-center md:text-right">
-            <p>&copy; 2024 Math Quest. All rights reserved.</p>
+            <p>&copy; 2026 Quest. All rights reserved.</p>
           </div>
         </div>
       </div>
